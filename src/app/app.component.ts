@@ -3,6 +3,7 @@ import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +14,7 @@ export class AppComponent {
     public electronService: ElectronService,
     private translate: TranslateService
   ) {
-    translate.setDefaultLang('en');
+    translate.setDefaultLang('zh-CN');
     console.log('AppConfig', AppConfig);
 
     if (electronService.isElectron) {

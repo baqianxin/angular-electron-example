@@ -13,10 +13,17 @@ function createWindow(): BrowserWindow {
 
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height,
+    x: size.width * 0.3 / 2,
+    y: size.height * 0.3 / 2,
+    width: size.width * 0.7,
+    height: size.height * 0.7,
+    // 边框隐藏
+    frame: false,
+    // 隐藏MAC标题
+    titleBarStyle: 'hidden',
+    // 固定宽高
+    resizable: false,
+
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,

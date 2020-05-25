@@ -1,0 +1,12 @@
+{
+  "PAGES": {
+      "HOME": {
+          "TITLE": "工作台",
+          "GO_TO_DETAIL": "进入详情"
+      },
+      "DETAIL": {
+        "TITLE": "详情页",
+        "BACK_TO_HOME": "返回主页"
+    }
+  }
+}
