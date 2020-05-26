@@ -1,6 +1,16 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron';
+
+import installExtension, {
+  EMBER_INSPECTOR, REACT_DEVELOPER_TOOLS,
+  BACKBONE_DEBUGGER, JQUERY_DEBUGGER,
+  ANGULARJS_BATARANG, VUEJS_DEVTOOLS,
+  REDUX_DEVTOOLS, REACT_PERF,
+  CYCLEJS_DEVTOOL, MOBX_DEVTOOLS,
+  APOLLO_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer';
 import * as path from 'path';
 import * as url from 'url';
+import * as os from 'os';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -10,9 +20,9 @@ function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
   win = new BrowserWindow({
+    backgroundColor: '#fff',
     x: size.width * 0.3 / 2,
     y: size.height * 0.3 / 2,
     width: size.width * 0.7,
@@ -29,12 +39,12 @@ function createWindow(): BrowserWindow {
       allowRunningInsecureContent: (serve) ? true : false,
     },
   });
-
+  // 设置扩展
   if (serve) {
-
     require('devtron').install();
-    win.webContents.openDevTools();
-
+    win.webContents.openDevTools({
+      mode: 'detach', activate: true
+    });
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
@@ -63,11 +73,33 @@ try {
 
   app.allowRendererProcessReuse = true;
 
+  // 设置 Mac-Dock
+  const dockMenu = Menu.buildFromTemplate([
+    {
+      label: 'New Window',
+      click() { console.log('New Window') }
+    }, {
+      label: 'New Window with Settings',
+      submenu: [
+        { label: 'Basic' },
+        { label: 'Pro' }
+      ]
+    },
+    { label: 'New Command...' }
+  ])
+
+  app.dock.setMenu(dockMenu)
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
   app.on('ready', () => setTimeout(createWindow, 400));
+
+  app.whenReady().then(() => {
+    installExtension(ANGULARJS_BATARANG)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

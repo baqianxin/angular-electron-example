@@ -1,2 +1,50 @@
-<router-outlet>
-</router-outlet>
+<div el-container class="main" style="height:100%">
+  <div el-aside width="200px" height="100%">
+    <el-menu model="2" class="side-nav">
+      <el-menu-item index="1">
+        <h3 style="text-align:center">Angular{{ winHeight }}</h3>
+      </el-menu-item>
+      <el-submenu index="2">
+        <ng-template #title>
+          <i class="el-icon-message"></i>导航一
+        </ng-template>
+        <el-menu-item-group title="分组一">
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4" title="选项4">
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
+      <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
+    </el-menu>
+  </div>
+  <div el-container direction="vertical">
+    <div el-header>
+      <el-menu [model]="0" (modelChange)="navHeader($event)" class="el-menu-demo" mode="horizontal">
+        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-submenu index="2" title="我的工作台">
+          <el-menu-item index="2-1">选项1</el-menu-item>
+          <el-menu-item index="2-2">选项2</el-menu-item>
+          <el-menu-item index="2-3">选项3</el-menu-item>
+        </el-submenu>
+        <el-menu-item index="3"><a href="https://github.com/eleme/element-angular" target="_blank">GITHUB</a>
+        </el-menu-item>
+      </el-menu>
+    </div>
+    <div el-main>
+      <router-outlet></router-outlet>
+    </div>
+    <div el-footer class="footer">
+      <div el-row>
+        <div el-col span="8">Copyright &copy;baqianxin@360.cn</div>
+        <div el-col span="16" style="text-align:right;"><span>Help &?</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>

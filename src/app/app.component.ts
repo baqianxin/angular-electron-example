@@ -26,4 +26,21 @@ export class AppComponent {
       console.log('Mode web');
     }
   }
+
+  handle(event: any): void {
+    console.log(event)
+  }
+
+  navHeader(event: any): void {
+    const fs = require('fs')
+    const root = fs.readdirSync('/')
+    // 这会打印出磁盘根级别的所有文件
+    // 同时包含'/'和'C:\'。
+    console.log(root)
+    //这样写在渲染进程中时行得通的，但是在主进程中是'未定义'
+    const { remote } = require('electron')
+    const { BrowserWindow,screen } = remote
+    console.log(event,screen.getPrimaryDisplay().workAreaSize.width)
+    require('electron').webFrame.setZoomFactor(1)
+  }
 }

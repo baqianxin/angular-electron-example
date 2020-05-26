@@ -17,18 +17,21 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HomeModule } from './home/home.module';
 import { DetailModule } from './detail/detail.module';
 
+import { SideNavComponent } from './side-nav/side.nav.component';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 // import module
 import { ElModule } from 'element-angular'
 
+// if you use webpack, import style
+import 'element-angular/theme/index.css'
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [SideNavComponent,AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
